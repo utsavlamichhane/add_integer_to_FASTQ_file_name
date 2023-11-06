@@ -1,0 +1,23 @@
+import os
+
+# Iterate over all files in the current directory
+for filename in os.listdir('.'):
+    # Check if the file has the '.fastq.gz' extension
+    if filename.endswith('.fastq.gz'):
+        # Split the filename on underscores
+        parts = filename.split('_')
+        # Extract the sample part (e.g., 'Sample-1')
+        sample_part = parts[0]
+        # Extract the number from the sample part and convert it to an integer
+        sample_number = int(sample_part.split('-')[1])
+        # Add 383 to the sample number
+        new_sample_number = sample_number + 383
+        # Reconstruct the sample part with the new sample number
+        new_sample_part = f'Sample-{new_sample_number}'
+        # Reconstruct the entire new filename
+        new_filename = filename.replace(sample_part, new_sample_part)
+        # Rename the file
+        os.rename(filename, new_filename)
+        print(f"Renamed: {filename} -> {new_filename}")
+
+print("All files have been renamed.")
